@@ -43,6 +43,8 @@ RUN set -eux; \
        libxmlsec1-dev  \
        libxmlsec1-openssl \
        python3-dev \
+       vim \
+       curl \
        wget; \
     # install gosu
     apt-get install -y --no-install-recommends ca-certificates wget; \
