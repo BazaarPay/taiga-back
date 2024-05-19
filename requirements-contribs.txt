@@ -12,3 +12,5 @@ taiga-contrib-protected @ git+https://github.com/taigaio/taiga-contrib-protected
     # via -r requirements-contribs.in
 taiga-contrib-slack @ git+https://github.com/taigaio/taiga-contrib-slack.git@6.8.0#subdirectory=back
     # via -r requirements-contribs.in
+taiga-contrib-saml-auth @ git+https://github.com/arash-khajelou/taiga-contrib-saml-auth@master#subdirectory=back
+    # via -r requirements-contribs.in

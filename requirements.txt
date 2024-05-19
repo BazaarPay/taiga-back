@@ -22,6 +22,12 @@ billiard==3.6.4.0
     # via celery
 bleach==4.1.0
     # via -r requirements.in
+boto3==1.34.103
+    # via -r requirements.in
+botocore==1.34.108
+    # via
+    #   boto3
+    #   s3transfer
 cairocffi==1.4.0
     # via cairosvg
 cairosvg==2.6.0
@@ -68,6 +74,7 @@ django==3.2.19
     #   django-sampledatahelper
     #   django-sites
     #   django-sr
+    #   django-storages
     #   easy-thumbnails
 django-ipware==1.1.6
     # via -r requirements.in
@@ -82,6 +89,8 @@ django-sampledatahelper==0.4.1
 django-sites==0.11
     # via -r requirements.in
 django-sr==0.0.4
+    # via -r requirements.in
+django-storages==1.14.3
     # via -r requirements.in
 djmail==2.0.0
     # via -r requirements.in
@@ -101,10 +110,17 @@ importlib-metadata==6.0.0
     # via markdown
 jinja2==3.1.2
     # via django-jinja
+jmespath==1.0.1
+    # via
+    #   boto3
+    #   botocore
 kombu==5.2.4
     # via celery
 lxml==4.9.2
-    # via premailer
+    # via
+    #   -r requirements.in
+    #   premailer
+    #   xmlsec
 markdown==3.4.1
     # via
     #   -r requirements.in
@@ -160,6 +176,7 @@ pymdown-extensions==9.9.2
 python-dateutil==2.7.5
     # via
     #   -r requirements.in
+    #   botocore
     #   rudder-sdk-python
 python-magic==0.4.15
     # via -r requirements.in
@@ -188,6 +205,8 @@ requests-oauthlib==1.3.1
     #   asana
 rudder-sdk-python==1.0.0b1
     # via -r requirements.in
+s3transfer==0.10.1
+    # via boto3
 sampledata==0.3.7
     # via django-sampledatahelper
 scikit-image==0.19.3
@@ -221,7 +240,9 @@ tinycss2==1.2.1
 unidecode==0.4.20
     # via -r requirements.in
 urllib3==1.26.14
-    # via requests
+    # via
+    #   botocore
+    #   requests
 vine==5.0.0
     # via
     #   amqp
@@ -237,10 +258,10 @@ webencodings==0.5.1
     #   cssselect2
     #   html5lib
     #   tinycss2
+xmlsec==1.3.13
+    # via -r requirements.in
 zipp==1.2.0
-    # via
-    #   -r requirements.in
-    #   importlib-metadata
+    # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

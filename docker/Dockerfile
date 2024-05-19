@@ -38,6 +38,11 @@ RUN set -eux; \
        git \
        net-tools \
        procps \
+       pkg-config  \
+       libxml2-dev  \
+       libxmlsec1-dev  \
+       libxmlsec1-openssl \
+       python3-dev \
        wget; \
     # install gosu
     apt-get install -y --no-install-recommends ca-certificates wget; \

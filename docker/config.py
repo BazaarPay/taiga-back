@@ -60,6 +60,28 @@ THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
 STATIC_URL = f"{ TAIGA_URL }/static/"
 
+#########################################
+## MEDIA
+#########################################
+MEDIA_URL = f"{ TAIGA_URL }/media/"
+
+S3_ENABLED = os.getenv('S3_ENABLED', 'False') == 'True'
+
+if S3_ENABLED:
+    INSTALLED_APPS += [
+        'storages'
+    ]
+
+    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+    AWS_S3_ENDPOINT_URL = os.getenv("AWS_S3_ENDPOINT_URL")
+
+DEFAULT_FILE_STORAGE = os.getenv("DEFAULT_FILE_STORAGE", "taiga_contrib_protected.storage.ProtectedFileSystemStorage")
+THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
+
+STATIC_URL = f"{ TAIGA_URL }/static/"
+
 
 #########################################
 ## EMAIL
@@ -196,4 +218,102 @@ if ENABLE_TRELLO_IMPORTER:
         "active": True,
         "api_key": os.getenv('TRELLO_IMPORTER_API_KEY'),
         "secret_key": os.getenv('TRELLO_IMPORTER_SECRET_KEY')
+    }
+
+#########################################
+##  SAML
+#########################################
+ENABLE_SAML = os.getenv('ENABLE_SAML', 'False') == 'True'
+
+if ENABLE_SAML:
+    SP_CERT = os.getenv('SP_CERT', '')
+    SP_P_KEY = os.getenv('SP_P_KEY', '')
+    IDP_CERT = os.getenv('IDP_CERT', '')
+    IDP_P_KEY = os.getenv('IDP_P_KEY', '')
+    IDP_ENTITY_ID = os.getenv('IDP_ENTITY_ID', '')
+    IDP_SSO_URL = os.getenv('IDP_SSO_URL', '')
+    IDP_SLO_URL = os.getenv('IDP_SLO_URL', '')
+    SSO_ORG = os.getenv('SSO_ORG', 'taiga-org')
+    SSO_DISPLAY_NAME = os.getenv('SSO_DISPLAY_NAME', 'Taiga Organization')
+    SSO_ORG_URL = os.getenv('SSO_ORG_URL', 'https://taiga.io')
+    CP_TECHNICAL_NAME = os.getenv('CP_TECHNICAL_NAME', 'Technical Contact Name')
+    CP_TECHNICAL_EMAIL = os.getenv('CP_TECHNICAL_EMAIL', 'technical@example.com')
+    CP_SUPPORT_NAME = os.getenv('CP_SUPPORT_NAME', 'Support Contact Name')
+    CP_SUPPORT_EMAIL = os.getenv('CP_SUPPORT_EMAIL', 'support@example.com')
+
+    INSTALLED_APPS += ["taiga_contrib_saml_auth"]
+
+    SAML_AUTH = {
+        'sp': {
+            # 'entityId', 'assertionConsumerService' and 'singleLogoutService' will be set automatically.
+            # 'NameIDFormat': 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
+
+            'x509cert': f'''-----BEGIN CERTIFICATE-----
+            {SP_CERT}
+            -----END CERTIFICATE-----''',
+
+            'privateKey': f'''-----BEGIN RSA PRIVATE KEY-----
+            {SP_P_KEY}
+            -----END RSA PRIVATE KEY-----''',
+        },
+
+        'idp': {
+            'entityId': IDP_ENTITY_ID,
+            "singleSignOnService": {
+                "url": IDP_SSO_URL,
+                "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+            },
+            "singleLogoutService": {
+                "url": IDP_SLO_URL,
+                "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+            },
+            'x509cert': f'''-----BEGIN CERTIFICATE-----
+            {IDP_CERT}
+            -----END CERTIFICATE-----''',
+        },
+
+        'security': {
+            'nameIdEncrypted': False,
+            'authnRequestsSigned': False,
+            'logoutRequestSigned': False,
+            'logoutResponseSigned': False,
+            'signMetadata': False,
+            'wantMessagesSigned': False,
+            'wantAssertionsSigned': False,
+            'wantNameId': True,
+            'wantAssertionsEncrypted': False,
+            'wantNameIdEncrypted': False,
+            'wantAttributeStatement': True,
+            'requestedAuthnContext': True,
+        },
+
+        'organization': {
+            'en-US': {
+                'name': SSO_ORG,
+                'displayname': SSO_DISPLAY_NAME,
+                'url': SSO_ORG_URL,
+            },
+        },
+
+        'contactPerson': {
+            'technical': {
+                'givenName': CP_TECHNICAL_NAME,
+                'emailAddress': CP_TECHNICAL_EMAIL
+            },
+            'support': {
+                'givenName': CP_SUPPORT_NAME,
+                'emailAddress': CP_SUPPORT_EMAIL
+            },
+        },
+
+        'mapping': {
+            'attributes': {
+                'email': 'email',
+                'username': 'preferred_username',
+                'full_name': 'name',
+                # 'bio': 'bio',
+                # 'lang': 'lang',
+                # 'timezone': 'timezone',
+            },
+        },
     }

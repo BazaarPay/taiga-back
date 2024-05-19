@@ -6,6 +6,7 @@
 # Copyright (c) 2021-present Kaleidos INC
 
 from django.conf import settings
+from django.conf.urls import url
 from django.urls import include, re_path
 from django.contrib import admin
 from django.urls import path
@@ -70,3 +71,9 @@ if settings.DEBUG:
     # Hardcoded only for development server
     urlpatterns += staticfiles_urlpatterns(prefix="/static/")
     urlpatterns += mediafiles_urlpatterns(prefix="/media/")
+
+##############################################
+# SAML Auth
+##############################################
+
+urlpatterns += [url(r'^saml/', include('taiga_contrib_saml_auth.urls'))]
