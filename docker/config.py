@@ -249,11 +249,11 @@ if ENABLE_SAML:
             # 'NameIDFormat': 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
 
             'x509cert': f'''-----BEGIN CERTIFICATE-----
-            {SP_CERT}
+{SP_CERT}
             -----END CERTIFICATE-----''',
 
             'privateKey': f'''-----BEGIN RSA PRIVATE KEY-----
-            {SP_P_KEY}
+{SP_P_KEY}
             -----END RSA PRIVATE KEY-----''',
         },
 
@@ -268,7 +268,7 @@ if ENABLE_SAML:
                 "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
             },
             'x509cert': f'''-----BEGIN CERTIFICATE-----
-            {IDP_CERT}
+{IDP_CERT}
             -----END CERTIFICATE-----''',
         },
 
