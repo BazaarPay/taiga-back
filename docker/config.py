@@ -245,6 +245,8 @@ if ENABLE_SAML:
 
     SAML_AUTH = {
         'sp': {
+            'signatureAlgorithm': 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256',  # Example algorithm
+            'digestAlgorithm': 'http://www.w3.org/2001/04/xmlenc#sha256',
             # 'entityId', 'assertionConsumerService' and 'singleLogoutService' will be set automatically.
             # 'NameIDFormat': 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
 
@@ -274,12 +276,12 @@ if ENABLE_SAML:
 
         'security': {
             'nameIdEncrypted': False,
-            'authnRequestsSigned': False,
-            'logoutRequestSigned': False,
+            'authnRequestsSigned': True,
+            'logoutRequestSigned': True,
             'logoutResponseSigned': False,
             'signMetadata': False,
-            'wantMessagesSigned': False,
-            'wantAssertionsSigned': False,
+            'wantMessagesSigned': True,
+            'wantAssertionsSigned': True,
             'wantNameId': True,
             'wantAssertionsEncrypted': False,
             'wantNameIdEncrypted': False,
