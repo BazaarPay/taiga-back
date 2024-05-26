@@ -15,6 +15,8 @@ import os
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
+SECURE_PROXY_SSL_HEADER = os.getenv('SECURE_PROXY_SSL_HEADER', 'SECURE_PROXY_SSL_HEADER'), 'https'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
