@@ -8,7 +8,6 @@
 from .common import *
 import os
 
-
 #########################################
 ## GENERIC
 #########################################
@@ -24,8 +23,8 @@ DATABASES = {
         'USER': os.getenv('POSTGRES_USER'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
         'HOST': os.getenv('POSTGRES_HOST'),
-        'PORT': os.getenv('POSTGRES_PORT','5432'),
-        'OPTIONS': {'sslmode': os.getenv('POSTGRES_SSLMODE','disable')},
+        'PORT': os.getenv('POSTGRES_PORT', '5432'),
+        'OPTIONS': {'sslmode': os.getenv('POSTGRES_SSLMODE', 'disable')},
         'DISABLE_SERVER_SIDE_CURSORS': os.getenv('POSTGRES_DISABLE_SERVER_SIDE_CURSORS', 'False') == 'True',
     }
 }
@@ -35,10 +34,10 @@ TAIGA_SITES_SCHEME = os.getenv('TAIGA_SITES_SCHEME')
 TAIGA_SITES_DOMAIN = os.getenv('TAIGA_SITES_DOMAIN')
 FORCE_SCRIPT_NAME = os.getenv('TAIGA_SUBPATH', '')
 
-TAIGA_URL = f"{ TAIGA_SITES_SCHEME }://{ TAIGA_SITES_DOMAIN }{ FORCE_SCRIPT_NAME }"
+TAIGA_URL = f"{TAIGA_SITES_SCHEME}://{TAIGA_SITES_DOMAIN}{FORCE_SCRIPT_NAME}"
 SITES = {
-        "api": { "name": "api", "scheme": TAIGA_SITES_SCHEME, "domain": TAIGA_SITES_DOMAIN },
-        "front": { "name": "front", "scheme": TAIGA_SITES_SCHEME, "domain": f"{ TAIGA_SITES_DOMAIN }{ FORCE_SCRIPT_NAME }" }
+    "api": {"name": "api", "scheme": TAIGA_SITES_SCHEME, "domain": TAIGA_SITES_DOMAIN},
+    "front": {"name": "front", "scheme": TAIGA_SITES_SCHEME, "domain": f"{TAIGA_SITES_DOMAIN}{FORCE_SCRIPT_NAME}"}
 }
 
 LANGUAGE_CODE = os.getenv("LANGUAGE_CODE", "en-us")
@@ -56,16 +55,16 @@ DEFAULT_PROJECT_SLUG_PREFIX = os.getenv('DEFAULT_PROJECT_SLUG_PREFIX', 'False') 
 #########################################
 ## MEDIA
 #########################################
-MEDIA_URL = f"{ TAIGA_URL }/media/"
+MEDIA_URL = f"{TAIGA_URL}/media/"
 DEFAULT_FILE_STORAGE = "taiga_contrib_protected.storage.ProtectedFileSystemStorage"
 THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
-STATIC_URL = f"{ TAIGA_URL }/static/"
+STATIC_URL = f"{TAIGA_URL}/static/"
 
 #########################################
 ## MEDIA
 #########################################
-MEDIA_URL = f"{ TAIGA_URL }/media/"
+MEDIA_URL = f"{TAIGA_URL}/media/"
 
 S3_ENABLED = os.getenv('S3_ENABLED', 'False') == 'True'
 
@@ -82,8 +81,7 @@ if S3_ENABLED:
 DEFAULT_FILE_STORAGE = os.getenv("DEFAULT_FILE_STORAGE", "taiga_contrib_protected.storage.ProtectedFileSystemStorage")
 THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
-STATIC_URL = f"{ TAIGA_URL }/static/"
-
+STATIC_URL = f"{TAIGA_URL}/static/"
 
 #########################################
 ## EMAIL
@@ -100,13 +98,11 @@ EMAIL_PORT = os.getenv('EMAIL_PORT', 587)
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'user')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'password')
 
-
 #########################################
 ## SESSION
 #########################################
 SESSION_COOKIE_SECURE = os.getenv('SESSION_COOKIE_SECURE', 'True') == 'True'
 CSRF_COOKIE_SECURE = os.getenv('CSRF_COOKIE_SECURE', 'True') == 'True'
-
 
 #########################################
 ## EVENTS
@@ -115,12 +111,11 @@ EVENTS_PUSH_BACKEND = "taiga.events.backends.rabbitmq.EventsPushBackend"
 
 EVENTS_PUSH_BACKEND_URL = os.getenv('EVENTS_PUSH_BACKEND_URL')
 if not EVENTS_PUSH_BACKEND_URL:
-    EVENTS_PUSH_BACKEND_URL = f"amqp://{ os.getenv('RABBITMQ_USER') }:{ os.getenv('RABBITMQ_PASS') }@{ os.getenv('TAIGA_EVENTS_RABBITMQ_HOST', 'taiga-events-rabbitmq') }:5672/taiga"
+    EVENTS_PUSH_BACKEND_URL = f"amqp://{os.getenv('RABBITMQ_USER')}:{os.getenv('RABBITMQ_PASS')}@{os.getenv('TAIGA_EVENTS_RABBITMQ_HOST', 'taiga-events-rabbitmq')}:5672/taiga"
 
 EVENTS_PUSH_BACKEND_OPTIONS = {
     "url": EVENTS_PUSH_BACKEND_URL
 }
-
 
 #########################################
 ## TAIGA ASYNC
@@ -130,9 +125,9 @@ from kombu import Queue  # noqa
 
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
 if not CELERY_BROKER_URL:
-    CELERY_BROKER_URL = f"amqp://{ os.getenv('RABBITMQ_USER') }:{ os.getenv('RABBITMQ_PASS') }@{ os.getenv('TAIGA_ASYNC_RABBITMQ_HOST', 'taiga-async-rabbitmq') }:5672/taiga"
+    CELERY_BROKER_URL = f"amqp://{os.getenv('RABBITMQ_USER')}:{os.getenv('RABBITMQ_PASS')}@{os.getenv('TAIGA_ASYNC_RABBITMQ_HOST', 'taiga-async-rabbitmq')}:5672/taiga"
 
-CELERY_RESULT_BACKEND = None # for a general installation, we don't need to store the results
+CELERY_RESULT_BACKEND = None  # for a general installation, we don't need to store the results
 CELERY_ACCEPT_CONTENT = ['pickle', ]  # Values are 'pickle', 'json', 'msgpack' and 'yaml'
 CELERY_TASK_SERIALIZER = "pickle"
 CELERY_RESULT_SERIALIZER = "pickle"
@@ -146,12 +141,10 @@ CELERY_TASK_DEFAULT_EXCHANGE = 'tasks'
 CELERY_TASK_DEFAULT_EXCHANGE_TYPE = 'topic'
 CELERY_TASK_DEFAULT_ROUTING_KEY = 'task.default'
 
-
 #########################################
 ##  REGISTRATION
 #########################################
 PUBLIC_REGISTER_ENABLED = os.getenv('PUBLIC_REGISTER_ENABLED', 'False') == 'True'
-
 
 #########################################
 ## CONTRIBS
@@ -187,12 +180,10 @@ if PUBLIC_REGISTER_ENABLED and ENABLE_GITLAB_AUTH:
     GITLAB_API_CLIENT_SECRET = os.getenv('GITLAB_API_CLIENT_SECRET')
     GITLAB_URL = os.getenv('GITLAB_URL')
 
-
 #########################################
 ## TELEMETRY
 #########################################
 ENABLE_TELEMETRY = os.getenv('ENABLE_TELEMETRY', 'True') == 'True'
-
 
 #########################################
 ##  IMPORTERS
