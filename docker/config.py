@@ -273,7 +273,7 @@ if ENABLE_SAML:
             'logoutRequestSigned': True,
             'logoutResponseSigned': False,
             'signMetadata': False,
-            'wantMessagesSigned': True,
+            'wantMessagesSigned': False,
             'wantAssertionsSigned': True,
             'wantNameId': True,
             'wantAssertionsEncrypted': False,
