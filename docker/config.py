@@ -269,17 +269,19 @@ if ENABLE_SAML:
 
         'security': {
             'nameIdEncrypted': False,
-            'authnRequestsSigned': True,
-            'logoutRequestSigned': True,
+            'authnRequestsSigned': False,
+            'logoutRequestSigned': False,
             'logoutResponseSigned': False,
             'signMetadata': False,
             'wantMessagesSigned': False,
-            'wantAssertionsSigned': True,
+            'wantAssertionsSigned': False,
             'wantNameId': True,
-            'wantAssertionsEncrypted': False,
             'wantNameIdEncrypted': False,
-            'wantAttributeStatement': True,
-            'requestedAuthnContext': True,
+            'wantAssertionsEncrypted': False,
+            'allowSingleLabelDomains': True,
+            'signatureAlgorithm': 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256',
+            'digestAlgorithm': 'http://www.w3.org/2001/04/xmlenc#sha256',
+            'rejectDeprecatedAlgorithm': True
         },
 
         'organization': {
