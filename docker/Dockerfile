@@ -9,7 +9,7 @@ LABEL maintainer="support@taiga.io"
 
 # Avoid prompting for configuration
 ENV DEBIAN_FRONTEND=noninteractive
-
+ENV OPENID_SCOPE="openid email"
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONFAULTHANDLER=1
@@ -82,6 +82,11 @@ RUN set -eux; \
        net-tools \
        procps \
        wget; \
+    RUN python -c 'import urllib.request as r; r.urlretrieve("https://github.com/robrotheram/taiga-contrib-openid-auth/archive/refs/heads/master.tar.gz", "/tmp/taiga-contrib-openid-auth.tar.gz")' \
+    && tar xzf /tmp/taiga-contrib-openid-auth.tar.gz -C /tmp \
+    && pip install /tmp/taiga-contrib-openid-auth*/back \
+    && rm -r /tmp/taiga-contrib-openid-auth* \
+    && cat /tmp/config.py.snippet >> /taiga-back/settings/config.py \
     apt-get autoremove -y; \
     rm -rf /var/lib/apt/lists/*; \
     rm -rf /root/.cache; \
