@@ -85,7 +85,7 @@ RUN set -eux; \
 
 RUN python -c 'import urllib.request as r; r.urlretrieve("https://github.com/robrotheram/taiga-contrib-openid-auth/archive/refs/heads/master.tar.gz", "/tmp/taiga-contrib-openid-auth.tar.gz")' \
     && tar xzf /tmp/taiga-contrib-openid-auth.tar.gz -C /tmp \
-    && pip install /tmp/taiga-contrib-openid-auth*/back \
+    && pip install --use-pep517 /tmp/taiga-contrib-openid-auth*/back \
     && rm -r /tmp/taiga-contrib-openid-auth* ; \
     apt-get autoremove -y; \
     rm -rf /var/lib/apt/lists/*; \
