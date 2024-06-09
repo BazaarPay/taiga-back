@@ -227,8 +227,6 @@ if ENABLE_OPENID:
     OPENID_CLIENT_ID = os.getenv('OPENID_CLIENT_ID')
     OPENID_CLIENT_SECRET = os.getenv('OPENID_CLIENT_SECRET')
     OPENID_SCOPE = os.getenv('OPENID_SCOPE')
-    OPENID_FILTER = "taiga_users,taiga_admins"
-    OPENID_FILTER_FIELD = "groups"
     OPENID_ID_FIELD = "sub"
     OPENID_USERNAME_FIELD = "preferred_username"
     OPENID_FULLNAME_FIELD = "name"
