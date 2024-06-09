@@ -63,6 +63,10 @@ RUN set -eux; \
     python -m pip install wheel; \
     python -m pip install -r requirements.txt; \
     python -m pip install -r requirements-contribs.txt; \
+    python -c 'import urllib.request as r; r.urlretrieve("https://github.com/robrotheram/taiga-contrib-openid-auth/archive/refs/heads/master.tar.gz", "/tmp/taiga-contrib-openid-auth.tar.gz")' \
+    && tar xzf /tmp/taiga-contrib-openid-auth.tar.gz -C /tmp \
+    && pip install --use-pep517 /tmp/taiga-contrib-openid-auth*/back \
+    && rm -r /tmp/taiga-contrib-openid-auth* ; \
     python manage.py compilemessages; \
     python manage.py collectstatic --no-input; \
     chmod +x docker/entrypoint.sh; \
@@ -80,13 +84,7 @@ RUN set -eux; \
        git \
        libpq-dev \
        net-tools \
-       procps \
-       wget; \
-
-RUN python -c 'import urllib.request as r; r.urlretrieve("https://github.com/robrotheram/taiga-contrib-openid-auth/archive/refs/heads/master.tar.gz", "/tmp/taiga-contrib-openid-auth.tar.gz")' \
-    && tar xzf /tmp/taiga-contrib-openid-auth.tar.gz -C /tmp \
-    && pip install --use-pep517 /tmp/taiga-contrib-openid-auth*/back \
-    && rm -r /tmp/taiga-contrib-openid-auth* ; \
+       procps; \
     apt-get autoremove -y; \
     rm -rf /var/lib/apt/lists/*; \
     rm -rf /root/.cache; \
